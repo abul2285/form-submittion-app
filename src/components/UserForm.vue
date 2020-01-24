@@ -101,7 +101,7 @@
 
                 <!-- Status field start -->
                 <div class v-if="field.type === 'radio'">
-                  <label for="field.name">{{ field.label }}</label>
+                  <label for="field.name" class="mb-0">{{ field.label }}</label>
                   <br />
                   <div
                     class="form-check form-check-inline"
@@ -171,6 +171,9 @@
                 >Register</button>
               </div>
             </form>
+            <div class="col-sm-6 mx-auto text-center" v-show="submitted && !$v.$error">
+              <p class="text-success">Form submited successfuly</p>
+            </div>
           </div>
         </div>
       </div>
@@ -238,14 +241,13 @@ export default {
   methods: {
     handleSubmit(user) {
       this.submitted = true;
-
       this.$v.$touch();
       if (this.$v.$invalid) {
+        // this.submitted = false;
         return;
       }
       this.$emit("addUser", user);
-      alert("SUCCESS!! :-)");
-      this.addUser;
+      // alert("SUCCESS!! :-)");
     }
   }
 };

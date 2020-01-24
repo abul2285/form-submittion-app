@@ -41,6 +41,9 @@ export default {
       let tempHeader = this.userInput.filter(user => user.type !== "info_html");
       let header = tempHeader;
       return header;
+    },
+    getData() {
+      return this.users;
     }
   }
 };

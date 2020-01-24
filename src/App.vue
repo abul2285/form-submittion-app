@@ -5,7 +5,7 @@
         class="user-button btn btn-success btn-block mx-auto"
         v-if="!showForm"
         @click="showUserForm"
-      >Add a new User</button>
+      >Add User</button>
     </div>
     <UserForm v-if="showForm" @addUser="addUser" />
     <UserTable />
@@ -34,8 +34,10 @@ export default {
     }),
     addUser(user) {
       this.add(user);
-      this.clear();
-      this.showForm = false;
+      setTimeout(() => {
+        this.showForm = false;
+        this.clear();
+      }, 1000);
     },
     showUserForm() {
       this.showForm = true;
