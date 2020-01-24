@@ -25,13 +25,13 @@
                       class="form-control"
                       :required="field.required"
                       :class="{
-                        'is-invalid': submitted && $v.user.name.$error
+                        'is-invalid':  $v.user.name.$error && submitted
                       }"
                     />
 
                     <!-- Name Field validation -->
                     <div
-                      v-if="submitted && !$v.user.name.required"
+                      v-if="!$v.user.name.required && submitted"
                       class="invalid-feedback"
                     >{{ field.validation_message }}</div>
                   </div>
@@ -50,13 +50,13 @@
                       :placeholder="field.placeholder"
                       class="form-control"
                       :class="{
-                        'is-invalid': submitted && $v.user.email.$error
+                        'is-invalid': $v.user.email.$error && submitted
                       }"
                       :required="field.required"
                     />
 
                     <!-- Email Field validation -->
-                    <div v-if="submitted && $v.user.email.$error" class="invalid-feedback">
+                    <div v-if="$v.user.email.$error && submitted" class="invalid-feedback">
                       <span v-if="!$v.user.email.required">
                         {{
                         field.validation_message
@@ -78,7 +78,7 @@
                       multiple
                       class="form-control"
                       :class="{
-                        'is-invalid': submitted && $v.user.ocupation.$error
+                        'is-invalid': $v.user.ocupation.$error && submitted
                       }"
                       v-model.trim="ocupation"
                       :required="field.required"
@@ -92,7 +92,7 @@
 
                     <!-- Ocupation Field validation -->
                     <div
-                      v-if="submitted && !$v.user.ocupation.required"
+                      v-if="!$v.user.ocupation.required && submitted"
                       class="invalid-feedback"
                     >{{ field.validation_message }}</div>
                   </div>
@@ -116,7 +116,7 @@
                     <input
                       class="form-check-input"
                       :class="{
-                        'is-invalid': submitted && $v.user.status.$error
+                        'is-invalid': $v.user.status.$error && submitted
                       }"
                       :type="field.type"
                       :name="field.name"
@@ -128,7 +128,7 @@
 
                     <!-- Status Field validation -->
                     <div
-                      v-if="submitted && !$v.user.status.required"
+                      v-if="!$v.user.status.required && submitted"
                       class="invalid-feedback"
                     >{{ field.validation_message }}</div>
                   </div>
@@ -141,7 +141,7 @@
                   <select
                     class="form-control"
                     :class="{
-                      'is-invalid': submitted && $v.user.internal_status.$error
+                      'is-invalid': $v.user.internal_status.$error && submitted
                     }"
                     :name="field.name"
                     :id="field.name"
@@ -157,7 +157,7 @@
 
                   <!-- Internal Status Field validation -->
                   <div
-                    v-if="submitted && !$v.user.internal_status.required"
+                    v-if="!$v.user.internal_status.required && submitted"
                     class="invalid-feedback"
                   >{{ field.validation_message }}</div>
                 </div>
@@ -171,7 +171,7 @@
                 >Register</button>
               </div>
             </form>
-            <div class="col-sm-6 mx-auto text-center" v-show="submitted && !$v.$error">
+            <div class="col-sm-6 mx-auto text-center" v-show="showSuccessMessage">
               <p class="text-success">Form submited successfuly</p>
             </div>
           </div>
@@ -193,7 +193,8 @@ export default {
     return {
       errors: [],
       userInput: json.fields,
-      submitted: false
+      submitted: false,
+      showSuccessMessage: false
     };
   },
 
@@ -243,11 +244,10 @@ export default {
       this.submitted = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
-        // this.submitted = false;
         return;
       }
+      this.showSuccessMessage = true;
       this.$emit("addUser", user);
-      // alert("SUCCESS!! :-)");
     }
   }
 };
