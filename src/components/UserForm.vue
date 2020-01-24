@@ -100,11 +100,11 @@
                 <!-- Ocupation field end -->
 
                 <!-- Status field start -->
-                <div class v-if="field.type === 'radio'">
+                <div v-if="field.type === 'radio'">
                   <label for="field.name" class="mb-0">{{ field.label }}</label>
                   <br />
                   <div
-                    class="form-check form-check-inline"
+                    class="form-check form-check-inline mr-5"
                     v-for="(option, i) in getInternalStatusOption"
                     :key="i"
                   >
@@ -114,7 +114,7 @@
                       }}
                     </label>
                     <input
-                      class="form-check-input"
+                      class="form-check-input m-2"
                       :class="{
                         'is-invalid': $v.user.status.$error && submitted
                       }"
@@ -127,11 +127,11 @@
                     />
 
                     <!-- Status Field validation -->
-                    <div
-                      v-if="!$v.user.status.required && submitted"
-                      class="invalid-feedback"
-                    >{{ field.validation_message }}</div>
                   </div>
+                  <span
+                    v-if="!$v.user.status.required && submitted"
+                    class="small d-block text-danger"
+                  >{{ field.validation_message }}</span>
                 </div>
                 <!-- Status field end -->
 
@@ -172,7 +172,7 @@
               </div>
             </form>
             <div class="col-sm-6 mx-auto text-center" v-show="showSuccessMessage">
-              <p class="text-success">Form submited successfuly</p>
+              <p class="text-success">Form submited successfully..</p>
             </div>
           </div>
         </div>
@@ -194,7 +194,8 @@ export default {
       errors: [],
       userInput: json.fields,
       submitted: false,
-      showSuccessMessage: false
+      showSuccessMessage: false,
+      userStatus: ""
     };
   },
 
@@ -241,6 +242,7 @@ export default {
 
   methods: {
     handleSubmit(user) {
+      this.userStatus = user.status;
       this.submitted = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
