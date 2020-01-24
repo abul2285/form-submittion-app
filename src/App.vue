@@ -1,22 +1,25 @@
 <template>
-  <div class="user">
-    <!-- <UserForm @addUser="addUser" /> -->
-    <button class="user-button" v-if="!showForm" @click="showUserForm">Register as a New User</button>
-    <UserForm2 v-if="showForm" @addUser="addUser" />
+  <div class="container">
+    <div class="col-4 mx-auto p-3">
+      <button
+        class="user-button btn btn-success btn-block mx-auto"
+        v-if="!showForm"
+        @click="showUserForm"
+      >Add a new User</button>
+    </div>
+    <UserForm v-if="showForm" @addUser="addUser" />
     <UserTable />
   </div>
 </template>
 
 <script>
-// import UserForm from "@/components/UserForm.vue";
-import UserForm2 from "@/components/UserForm2.vue";
+import UserForm from "@/components/UserForm.vue";
 import UserTable from "@/components/UserTable.vue";
 import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {
-    // UserForm,
-    UserForm2,
+    UserForm,
     UserTable
   },
   data() {

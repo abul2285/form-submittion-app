@@ -6,11 +6,7 @@
           <table class="table">
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Email</th>
-                <th>Ocupation</th>
-                <th>Status</th>
-                <th>Internal Status</th>
+                <th v-for="(header,i) in getHeader" :key="i">{{header.label}}</th>
               </tr>
             </thead>
             <tbody>
@@ -31,10 +27,21 @@
 
 <script>
 import { mapGetters } from "vuex";
+import json from "../store/data.json";
 export default {
   name: "UserTable",
+  data() {
+    return {
+      userInput: json.fields
+    };
+  },
   computed: {
-    ...mapGetters(["users"])
+    ...mapGetters(["users"]),
+    getHeader() {
+      let tempHeader = this.userInput.filter(user => user.type !== "info_html");
+      let header = tempHeader;
+      return header;
+    }
   }
 };
 </script>

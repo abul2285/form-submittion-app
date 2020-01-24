@@ -21,6 +21,7 @@ export default new Vuex.Store({
   },
   mutations: {
     updateField,
+
     ADD_USER(state, user) {
       let { name, email, ocupation, status, internal_status } = user;
       const newUser = {
@@ -33,6 +34,7 @@ export default new Vuex.Store({
       };
       state.userList.unshift(newUser);
     },
+
     CLEAR_USER(state) {
       state.form = {
         name: "",
@@ -47,9 +49,7 @@ export default new Vuex.Store({
     addUser({ commit }, user) {
       commit("ADD_USER", user);
     },
-    // deleteBookmark({ commit }, id) {
-    //   commit("DELETE_BOOKMARK", id);
-    // },
+
     clearUser({ commit }) {
       commit("CLEAR_USER");
     }
