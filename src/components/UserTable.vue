@@ -12,12 +12,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.id" class="bg-white">
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.ocupation.toString() }}</td>
-                  <td>{{ user.status }}</td>
-                  <td>{{ user.internal_status }}</td>
+                <tr v-for="(users,i) in getData" :key="i" class="bg-white">
+                  <td v-for="userInfo in users" :key="userInfo.id">{{userInfo}}</td>
                 </tr>
               </tbody>
             </table>
@@ -35,7 +31,8 @@ export default {
   name: "UserTable",
   data() {
     return {
-      userInput: json.fields
+      userInput: json.fields,
+      user: []
     };
   },
   computed: {
@@ -46,7 +43,12 @@ export default {
       return header;
     },
     getData() {
-      return this.users;
+      // let tempUsers = this.users.map(user => Object.values(user));
+      let tempUsers = this.users.map(user => user);
+      let users = tempUsers.filter(user => {
+        return user;
+      });
+      return users;
     }
   }
 };

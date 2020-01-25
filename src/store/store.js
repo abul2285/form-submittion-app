@@ -24,8 +24,9 @@ export default new Vuex.Store({
 
     ADD_USER(state, user) {
       let { name, email, ocupation, status, internal_status } = user;
+      ocupation = ocupation.toString();
       const newUser = {
-        id: 1 + state.userList.length,
+        // id: 1 + state.userList.length,
         name,
         email,
         ocupation,
